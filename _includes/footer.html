@@ -40,7 +40,7 @@
    $.ajax({
       url:"http://gitiread.me/index.html",
       success:function(d){
-          $("body").append(d);
+          console.log(d.length); 
       },
       error:function(e){
           console.log("oops"); 
