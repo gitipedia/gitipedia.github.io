@@ -1,9 +1,12 @@
 <header class="site-header">
 
   <div class="wrapper">
-
-    <a class="site-title" href="{{ site.baseurl }}/">{{ page.brand }}</a>
-
+    {% assign global=site.t[page.lang].global %}
+    {% if page.lang == "en" %}
+        <a class="site-title" href="{{ "/"| prepend: site.baseurl}}">{{ global.title }}</a>
+    {% else %}
+        <a class="site-title" href="{{ page.lang | prepend: "/" | prepend: site.baseurl}}">{{ global.title }}</a>
+    {% endif %}
     <nav class="site-nav">
       <a href="#" class="menu-icon">
         <svg viewBox="0 0 18 15">
@@ -14,12 +17,27 @@
       </a>
 
       <div class="trigger">
-        <select name="lan" id="select-lan" >
-            {% for lan in site.languages %} 
-              {% if page.lan ==  lan.key %}
-              <option value='{{lan.key}}' selected>{{lan.value}}</option> 
+        {% assign pages=site.pages | where:"lang", page.lang' %}
+        {% for page in pages %}
+          {% if page.title %}
+            <a class="page-link" href="{{ page.url | prepend: site.baseurl }}" class="{{ page.lang }}">{{ page.title }}</a>
+          {% endif %}
+        {% endfor %}
+        <select name="lang" id="select-lang" >
+        {% assign posts=site.posts | where:"ref", page.ref | sort: 'lang' %}
+            {% for post in posts %}
+              {% if post.lang ==  page.lang %}
+              <option value='{{ post.url | prepend: site.baseurl }}' selected>{{ site.l[post.lang] }}</option> 
               {% else %}
-              <option value='{{lan.key}}'>{{lan.value}}</option> 
+              <option value='{{ post.url | prepend: site.baseurl }}'>{{ site.l[post.lang] }}</option> 
+              {% endif %}
+            {% endfor %}
+            {% assign pages=site.pages | where:"ref", page.ref | sort: 'lang' %}
+            {% for p in pages %} 
+              {% if p.lang ==  page.lang %}
+              <option value='{{ p.url | prepend: site.baseurl }}' selected>{{ site.l[p.lang] }}</option> 
+              {% else %}
+              <option value='{{ p.url | prepend: site.baseurl }}' >{{ site.l[p.lang] }}</option> 
               {% endif %}
             {% endfor %}
         </select>
@@ -32,19 +50,8 @@
 
 <script language="javascript">
     $(document).ready(function(){
-        $("#select-lan").change(function(){
-           var path = window.location.pathname;
-           {% if page.lan != null %}
-               path = path.substring(1);
-               path = "/"+path.substring(path.indexOf("/")+1); 
-           {% endif %}
-        
-            var lan = $(this).val();
-            if (lan == "en"){
-                window.location.href=path;
-            }else{
-                window.location.href="/"+lan+""+path;
-            }
+        $("#select-lang").change(function(){
+            window.location.href=$(this).val();
         });
     });
 

@@ -1,13 +1,13 @@
 <footer class="site-footer">
 
   <div class="wrapper">
-
-    <h2 class="footer-heading">{{ site.title }}</h2>
+    {% assign global=site.t[page.lang].global %}
+    <h2 class="footer-heading">{{ global.title }}</h2>
 
     <div class="footer-col-wrapper">
       <div class="footer-col footer-col-1">
         <ul class="contact-list">
-          <li>{{ site.title }}</li>
+          <li>{{ global.title }}</li>
           <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
         </ul>
       </div>
@@ -29,7 +29,7 @@
       </div>
 
       <div class="footer-col footer-col-3">
-        <p>{{ site.description }}</p>
+        <p>{{ global.description }}</p>
       </div>
     </div>
 

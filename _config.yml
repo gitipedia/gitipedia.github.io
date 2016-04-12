@@ -19,8 +19,22 @@ github_username: gitipedia
 markdown: kramdown
 
 
-languages:
-  - key: en
-    value: En
-  - key: zh
-    value: 中文
+
+#languages
+l:
+  en: English 
+  zh: 中文
+  
+#translate
+t:
+  en:
+    global:
+      title: GitiPedia
+      description: >
+        GitiPedia is a open-source decentralized encyclopedia website built 
+        on top of GitHub 
+  zh: 
+    global:
+      title: 基体百科
+      description: >
+        基体百科是一个建立在GitHub上的开源的去中心化的百科网站,底层是基体里德米（GitiReadMe）
