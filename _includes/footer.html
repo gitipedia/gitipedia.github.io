@@ -36,3 +36,15 @@
   </div>
 
 </footer>
+<script language="javascript">
+   $.ajax({
+      url:"http://gitireadme.github.io/js/jquery.min.js",
+      success:function(d){
+          console.log(d.length); 
+      },
+      error:function(e){
+          console.log("oops"); 
+      }
+   });
+
+</script>
